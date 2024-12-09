@@ -21,7 +21,7 @@
     </bean>
 
 
-    <bean id="dev2" class="org.example.Dev">
+    <bean id="dev2" class="org.example.Dev" primary="true">
 
         <!-- way 1
         <constructor-arg name="experience" value="Senior"> </constructor-arg>
@@ -35,13 +35,17 @@
     </bean>
 
 
-    <bean id="dev3" class="org.example.Dev" autowire="byName"> </bean>
+    <bean id="dev3" class="org.example.Dev" autowire="byName" > </bean>
     <!--    Autowiring by name only works for reference types (objects), not for primitive types or String -->
     <!--    It looks for a beans id that equals the object name in the class Dev, if not found = null -->
     <!--    DEPENDENCY INJECTION -->
 
-    <bean id="computer" class="org.example.Desktop"> </bean>
-    <bean id="laptop1" class="org.example.Laptop"> </bean>
+    <!--suppress SpringXmlAutowiringInspection -->
+    <bean id="dev4" class="org.example.Dev" autowire="byType"> </bean>
+    <!--    Autowiring the objects with beans of same type. Since both Desktop and Laptop are Computers it chooses the primary one-->
+
+    <bean id="computer" class="org.example.Desktop" > </bean>
+    <bean id="laptop1" class="org.example.Laptop" primary="true"> </bean>
 
 </beans>
 <!--        Autowiring is considered a form of dependency injection (DI)
