@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ^ Definition of element bean
+
+      SpringBoot does this configuration for you automatically.
+      In this file, we are manually configuring beans so that
+      Spring can create and manage the objects -->
+
+    <!-- bean definitions here -->
+
+
+    <bean id="dev" class="org.example.Dev"> <!--uses the default constructor  -->
+
+        <property name="computer" ref="laptop1"> </property><!-- references the bean with id laptop1 -->
+        <property name="experience" value="Intern"> </property>
+        <!-- SETTER INJECTION uses the setter method in the class -->
+    </bean>
+
+
+    <bean id="dev2" class="org.example.Dev">
+
+        <!-- way 1
+        <constructor-arg name="experience" value="Senior"> </constructor-arg>
+        <constructor-arg name= "age" value="1"> </constructor-arg> -->
+
+        <!-- way 2 -->
+        <constructor-arg index="0" value="Senior"> </constructor-arg>
+        <constructor-arg index="1" value="1"> </constructor-arg>
+        <constructor-arg index="2" ref="laptop1"> </constructor-arg>
+        <!-- CONSTRUCTOR INJECTION uses the constructor in the class -->
+    </bean>
+
+
+    <bean id="dev3" class="org.example.Dev" autowire="byName"> </bean>
+    <!--    Autowiring by name only works for reference types (objects), not for primitive types or String -->
+    <!--    It looks for a beans id that equals the object name in the class Dev, if not found = null -->
+    <!--    DEPENDENCY INJECTION -->
+
+    <bean id="computer" class="org.example.Desktop"> </bean>
+    <bean id="laptop1" class="org.example.Laptop"> </bean>
+
+</beans>
+<!--        Autowiring is considered a form of dependency injection (DI)
+            because it is a mechanism used to inject dependencies
+            into a class without requiring explicit configuration for each dependency.-->
